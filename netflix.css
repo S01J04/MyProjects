@@ -222,27 +222,58 @@ margin-top: 200px;
 .movie-box{
     background-color: black;
     width: 850px;
-    height: 700px;
+    height: 10vh;
+    margin-top: 100px
 }
 
 /* Styles for the movie details box */
 .movie-box {
     position: fixed;
-    top: 52%;
+    top: 50vh;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(15, 15, 15, 0.719);
+    background-color: #141414;
     padding: 20px;
     z-index: 2;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(7, 6, 6, 0.1);
+    background-color: rgb(24, 22, 22);
+    width: 850px;
+    height: 100vh;
+    overflow-y: auto;
+    
 }
+.padd{
+    padding-left: 15px;
+}
+.padd:last-child{
+    
+}
+.card{
+    border-radius: 5px;
+    background-color: #4b484883;
+    width: 250px;
+    height: 330px;
+    margin-right: 35px;
+    margin-bottom: 35px;
+    
+}
+
  .img{
     width: 888px;
     position: relative;
     bottom: 19px;
     right: 19px;
 
+}
+.heading{
+    color: white;
+    font-size: 26px;
+    margin-top: 0px;
+}
+.similar-movies-row{
+   display: flex;
+    color: white;
 }
 .buttonControls--container{
     display: flex;
@@ -251,6 +282,7 @@ margin-top: 200px;
     
 }
 .primary-button button{
+    cursor: pointer;
     background-color:rgba(22, 18, 18, 0.199);
     padding: 8px 60px 8px;
     border-radius: 4px;
@@ -270,6 +302,7 @@ margin-top: 200px;
     font-size: 40px;
 }
 .color-supplementary{
+    cursor: pointer;
     margin-right: 10px;
     color: aliceblue;
     background-color:rgba(2, 2, 2, 0.384) ;
@@ -295,10 +328,15 @@ margin-top: 200px;
     color: white;
     padding: 9px;
     background-color:rgba(0, 0, 0, 0.404) ;
-    float:right ;
-    position: relative;
-    bottom: 500px;
+    position: absolute;
+    right: 0;
+    top: -500px;
 
+}
+.similar-movie{
+    border-radius: 5px;
+    width: 250px;
+    height: 150px;
 }
 a{
     text-decoration: none;
