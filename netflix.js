@@ -2,16 +2,16 @@
 
 const APIkey = "526f8fb0c234201767562cdfc8b50101"
 const APIEndpoint = "https://api.themoviedb.org/3"
-const imgPath="https://image.tmdb.org/t/p/original"
+const imgPath = "https://image.tmdb.org/t/p/original"
 const APIPaths = {
     fetchAllCategories: `${APIEndpoint}/genre/movie/list?api_key=${APIkey} `,
     fetchtrending: `${APIEndpoint}/trending/all/day?api_key=${APIkey} `,
-    fetchlatest:`${APIEndpoint}/movie/latest?api_key=${APIkey} `,
-    fetchNetflixOrignals:`${APIEndpoint}/movie/latest?api_key=${APIkey} `,
-    fetchtoprated:`${APIEndpoint}/movie/top_rated?api_key=${APIkey} `,
-    fetchpopular:`${APIEndpoint}/movie/popular?api_key=${APIkey} `,
-    fetchSimilarMovies:(id)=>`${APIEndpoint}/movie/movie_id/similar?api_key=${APIkey}&with_genres=${id} `,
-    fetchMoviesList:(id)=>`${APIEndpoint}/discover/movie?api_key=${APIkey}&with_genres=${id}`
+    fetchlatest: `${APIEndpoint}/movie/latest?api_key=${APIkey} `,
+    fetchNetflixOrignals: `${APIEndpoint}/movie/latest?api_key=${APIkey} `,
+    fetchtoprated: `${APIEndpoint}/movie/top_rated?api_key=${APIkey} `,
+    fetchpopular: `${APIEndpoint}/movie/popular?api_key=${APIkey} `,
+    fetchSimilarMovies: (id) => `${APIEndpoint}/movie/${id}/similar?api_key=${APIkey}`,
+    fetchMoviesList: (id) => `${APIEndpoint}/discover/movie?api_key=${APIkey}&with_genres=${id}`
 
 }
 
@@ -21,30 +21,32 @@ function init() {
     fetchtopratedmovies();
     fetchpopularmovies();
     fetchandbuildallsections();
-    
-  
+
+
 }
-function fetchtopratedmovies(){
-    fetch(APIPaths.fetchtoprated).then(res=>{
-       
+
+function fetchtopratedmovies() {
+    fetch(APIPaths.fetchtoprated).then(res => {
+
         return res.json();
-    }).then(res=>{
+    }).then(res => {
         // console.log(res.results)
-        let trend=res.results;
-        if(Array.isArray(trend)&& trend){
-            buildMovieSection(trend,"Toprated");
+        let trend = res.results;
+        if (Array.isArray(trend) && trend) {
+            buildMovieSection(trend, category={"name":"TopRated"});
         }
     })
 }
-function fetchpopularmovies(){
-    fetch(APIPaths.fetchpopular).then(res=>{
-       
+
+function fetchpopularmovies() {
+    fetch(APIPaths.fetchpopular).then(res => {
+
         return res.json();
-    }).then(res=>{
+    }).then(res => {
         // console.log(res.results)
-        let trend=res.results;
-        if(Array.isArray(trend)&& trend){
-            buildMovieSection(trend,"Popular");
+        let trend = res.results;
+        if (Array.isArray(trend) && trend) {
+            buildMovieSection(trend, category={"name":"Popular"});
         }
     })
 }
@@ -55,41 +57,43 @@ function fetchpopularmovies(){
 function fetchandbuildallsections() {
     fetch(APIPaths.fetchAllCategories)
         .then(res => {
-            
-           return res.json()})
+
+            return res.json()
+        })
         .then(res => {
             // console.log(res)
             const categories = res.genres
-            // console.log(categories)
+            console.log(categories)
             if (Array.isArray(categories) && categories) {
                 categories.forEach(categories => {
-                    
-                    fetchandbuildMovieSection(APIPaths.fetchMoviesList(categories.id),categories)
+                    // console.log(APIPaths.fetchMoviesList(categories.id),categories)
+                    fetchandbuildMovieSection(APIPaths.fetchMoviesList(categories.id), categories)
                 })
             }
 
         })
         .catch(err => console.error(err))
 }
+
 function fetchbanner() {
-    return fetch(APIPaths.fetchtrending)
-    .then(res => res.json())
-    .then(res => {
-        // console.log(res);
-        let trend = res.results;
-        if (Array.isArray(trend) && trend) {
-            return trend;
-        }
-    })
-    .then(movies => {
-        // console.log(movies);
-        let random=Math.floor(Math.random()*movies.length);
-        let randommovie=movies[random]
-        const bannersection = document.getElementById('banner-section');    
-        bannersection.style.background = `rgba(0, 0, 0, 0.4) url(${imgPath}${randommovie.backdrop_path}) center/cover`;
-       
-                const div = document.createElement('div');
-        div.innerHTML = `
+    fetch(APIPaths.fetchtrending)
+        .then(res => res.json())
+        .then(res => {
+            // console.log(res);
+            let trend = res.results;
+            if (Array.isArray(trend) && trend) {
+                return trend;
+            }
+        })
+        .then(movies => {
+            // console.log(movies);
+            let random = Math.floor(Math.random() * movies.length);
+            let randommovie = movies[random]
+            const bannersection = document.getElementById('banner-section');
+            bannersection.style.background = `rgba(0, 0, 0, 0.4) url(${imgPath}${randommovie.backdrop_path}) center/cover`;
+
+            const div = document.createElement('div');
+            div.innerHTML = `
             <h2 class="banner-title">${randommovie.title}</h2> <!-- Change to movies[0] -->
             <p class="banner-info">#10 in TV Shows Today</p>
             <p class="banner-overview">${randommovie.overview && randommovie.overview.length>200 ? randommovie.overview.slice(0,200).trim()+"...":randommovie.overview }</p> <!-- Change to movies[0] -->
@@ -98,58 +102,67 @@ function fetchbanner() {
                 <button class="action-btn info"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ltr-0 e1mhci4z1" data-name="CircleI" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12ZM13 10V18H11V10H13ZM12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z" fill="currentColor"></path></svg>&nbsp;&nbsp; More Info</button>
             </div>
         `;
-        div.className = "banner-content container";
-        bannersection.append(div);
-    });
+            div.className = "banner-content container";
+            bannersection.append(div);
+        });
 }
 
-function buildbannerSection(movie){
-    
+
+function fetchandbuildMovieSection(fetchurl, categories) {
+    fetch(fetchurl).then(res => {
+
+            return res.json()
+        })
+        .then((data) => {
+            console.log((data.results),categories)
+            // console.log(data.results)
+            const movies = data.results;
+            if (Array.isArray(movies) && movies.length) {
+                buildMovieSection(movies, categories)
+            }
+        })
+        .catch(err => console.error(err))
 }
 
-function fetchandbuildMovieSection(fetchurl,categories) {
-    fetch(fetchurl).then(res=>{
-        
-        return res.json()})
-    .then((data)=>{
-        // console.log(data.results,categories)
-        // console.log(data.results)
-        const movies=data.results;
-        if(Array.isArray(movies)&& movies.length){
-            buildMovieSection(movies,categories.name)
-        }
-    })
-    .catch(err=> console.error(err))
-}
-function fetchtrendingmovies(){
-    fetch(APIPaths.fetchtrending).then(res=>{
-       
+function fetchtrendingmovies() {
+    fetch(APIPaths.fetchtrending).then(res => {
+
         return res.json();
-    }).then(res=>{
-        // console.log(res.results)
-        let trend=res.results;
-        if(Array.isArray(trend)&& trend){
-            buildMovieSection(trend,"Trending");
+    }).then(res => {
+        // console.log((res))
+       
+        let trend = res.results;
+        //  console.log((trend))
+        if (Array.isArray(trend) && trend) {
+            category={"name":"Trending"}
+            console.log(category.name)
+            buildMovieSection(trend,category );
         }
     })
 }
+
 function buildMovieSection(list, category) {
+    console.log(category.name)
+    // console.log(typeof(list[3].title))
     const moviecont = document.getElementById('movies_cont');
     const movieslisthtml = list.map(item => {
-        console.table(item)
+        // console.log(typeof(item.title))
         const sanitizedTitle = JSON.stringify(item.title);
+        // console.log(typeof(sanitizedTitle));
         const sanitizedBackdropPath = JSON.stringify(item.backdrop_path);
         const sanitizedOverview = JSON.stringify(item.overview);
         const sanitizedposterpath = JSON.stringify(item.poster_path);
         const sanitizedvoteavg = JSON.stringify(item.vote_average);
+        const sanitizedid = JSON.stringify(item.id);
 
         return `
             <img class="movie_item" id="movie_item" src="${imgPath}${item.backdrop_path}" alt="${item.title}"
-                data-movie='{"title": ${sanitizedTitle},"vote_average": ${sanitizedvoteavg},"poster_path":${sanitizedposterpath}, "backdrop_path": ${sanitizedBackdropPath}, "overview": ${sanitizedOverview}}'>
+                data-movie='{"title": ${sanitizedTitle},"id": ${sanitizedid},"vote_average": ${sanitizedvoteavg},"poster_path":${sanitizedposterpath}, "backdrop_path": ${sanitizedBackdropPath}, "overview": ${sanitizedOverview}}'>
         `;
     }).join(" ");
+   
     const moviessectionhtml = `
-        <h2 class="movie-section-heading">${category}&nbsp;&nbsp;<span class="explore">Explore</span></h2>
+        <h2 class="movie-section-heading">${category.name}&nbsp;&nbsp;<span class="explore">Explore</span></h2>
         <div class="movies-row">
             ${movieslisthtml}
         </div>  
@@ -170,14 +183,15 @@ function imageClickHandler(e) {
     const movieData = JSON.parse(e.currentTarget.getAttribute('data-movie'));
     const category = e.currentTarget.closest(".movies-section").querySelector(".movie-section-heading").textContent;
     console.log(movieData, category);
-    showMovieDetailsBox(movieData, category);
+    showMovieDetailsBox(movieData);
 }
 
-function showMovieDetailsBox(movieData, category) {
+async function showMovieDetailsBox(movieData, category) {
     // Create overlay
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     document.body.appendChild(overlay);
+    console.log(movieData.id)
 
     const moviebox = document.createElement("div");
     moviebox.className = "movie-box";
@@ -204,6 +218,63 @@ function showMovieDetailsBox(movieData, category) {
         document.body.removeChild(overlay); // Remove the overlay
         document.body.removeChild(moviebox);
     });
+
+    try {
+        const similarMoviesResponse = await fetch(APIPaths.fetchSimilarMovies(movieData.id));
+        const similarMoviesData = await similarMoviesResponse.json();
+        // console.log(similarMoviesData)
+
+        if (Array.isArray(similarMoviesData.results) && similarMoviesData.results.length > 0) {
+            const similarMovies = similarMoviesData.results;
+
+            const similarMovieGroups = [];
+            for (let i = 0; i < similarMovies.length; i += 3) {
+                similarMovieGroups.push(similarMovies.slice(i, i + 3));
+            }
+            const similarMoviesHtml = similarMovieGroups
+                .map(group => {
+                    const groupHtml = group.map(movie => {
+                        const sanitizedTitle = JSON.stringify(movie.title);
+                        const sanitizedBackdropPath = JSON.stringify(movie.backdrop_path);
+                        const sanitizedOverview = JSON.stringify(movie.overview);
+
+                        return `
+                     <div class="card">
+                         <img class="similar-movie" src="${imgPath}${movie.backdrop_path}" alt="${movie.title}"
+                             data-movie='{"title": ${sanitizedTitle}, "overview": ${sanitizedOverview}, "backdrop_path": ${sanitizedBackdropPath}}'>
+                         <h3 class="padd">${movie.title&& movie.title.length> 50 ? movie.title.slice(0,50).trim()+"...":movie.title}</h3>
+                         <p class="padd">${movie.overview && movie.overview.length > 138 ? movie.overview.slice(0, 138).trim() + "..." : movie.overview}</p>
+                     </div>
+                 `;
+                    }).join('');
+
+                    return `<div class="similar-movies-row">${groupHtml}</div>`;
+                })
+                .join('');
+
+            const similarMoviesSection = document.createElement("div");
+            similarMoviesSection.className = "similar-movies-section";
+            similarMoviesSection.innerHTML = `
+         <h3 class="heading">Similar Movies</h3>
+         ${similarMoviesHtml}
+     `;
+            const overviewElement = moviebox.querySelector('.overview');
+
+            // Insert the similarMoviesSection after the overview element
+            overviewElement.insertAdjacentElement('afterend', similarMoviesSection);
+
+            const similarMovieImages = moviebox.querySelectorAll(".similar-movie");
+            similarMovieImages.forEach(image => {
+                image.addEventListener("click", imageClickHandler);
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching similar movies:", error);
+    }
+
+
+
+
 }
 
 window.addEventListener('load', function () {
