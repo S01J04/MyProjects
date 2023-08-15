@@ -558,10 +558,11 @@ a{
     border-radius: 10px;
     background-color: #4b484883;
     max-width: 30vw;
-    height: 30vh;
+    height: 22vh;
     margin-right: 2px;
     margin-bottom: 35px;
     margin-left: 8px;
+    overflow: hidden;
 }
 .similar-movie{
     border-radius: 5px;
