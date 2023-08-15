@@ -3,8 +3,10 @@ body{
     padding: 0;
     margin: 0;
     font-family:  Helvetica, Arial , sans-serif;
+    max-width: 100vw;
 }
 header{
+    max-width: 100vw;
     background-color: transparent;
     position: fixed;
     z-index: 100;
@@ -45,6 +47,7 @@ header{
     
  
 }
+
 .nav-item:hover{
 color: rgb(204, 204, 204);
 }
@@ -98,8 +101,6 @@ display: none;
     position: relative;
     bottom: 100px;
      flex-wrap: wrap; 
-
-   
 }
 .movie_item{
     width: 400px;
@@ -115,6 +116,7 @@ display: none;
     margin-left: 30px;
 }
 .banner-section{
+    
     min-height: 100vh;
     position: relative;
     background-repeat: no-repeat;
@@ -135,7 +137,7 @@ display: none;
 height:150px;
 width: 1500px;
 color: rgb(255, 255, 255);
-font-size: 90px;
+font-size: 5vw;
 margin: 0;
 margin-top: 200px;
 
@@ -249,6 +251,9 @@ margin-top: 200px;
 .padd:last-child{
     
 }
+.no-scroll {
+    overflow: hidden;
+}
 .card{
     border-radius: 5px;
     background-color: #4b484883;
@@ -256,14 +261,20 @@ margin-top: 200px;
     height: 330px;
     margin-right: 35px;
     margin-bottom: 35px;
+    margin-left: 8px;
     
 }
 
  .img{
     width: 888px;
     position: relative;
-    bottom: 19px;
+    bottom: 69px;
     right: 19px;
+
+}
+.btt{
+   position: relative;
+   bottom: 140px;
 
 }
 .heading{
@@ -278,7 +289,7 @@ margin-top: 200px;
 .buttonControls--container{
     display: flex;
     position: relative;
-    bottom: 100px;
+    bottom: 130px;
     
 }
 .primary-button button{
@@ -320,18 +331,20 @@ margin-top: 200px;
     font-weight: 800;
     padding-top: 7px;
 }
-.close-button{
+.close-button {
     cursor: pointer;
     width: 30px;
     height: 30px;
     border-radius: 100%;
     color: white;
     padding: 9px;
-    background-color:rgba(0, 0, 0, 0.404) ;
-    position: absolute;
-    right: 0;
-    top: -500px;
-
+    background-color: rgba(0, 0, 0, 0.404);
+    position: sticky;
+    float: right; /* Change from 'absolute' to 'fixed' */
+    right: 10; /* Adjust as needed */
+    top: 0; /* Adjust as needed */
+    z-index: 9999; /* Adjust the z-index as needed to make sure the button is above other content */
+    transition: top 0.3s ease-in-out; /* Add a transition effect for smooth movement */
 }
 .similar-movie{
     border-radius: 5px;
@@ -351,79 +364,223 @@ a{
     bottom: 20px;
 }
 
-
+.q{
+    text-align: justify;
+    padding-right: 15px;
+    font-size: 15px;
+}
 
 
 .v{
     display: flex;
 }
-
-@media (max-width:375px) {
+@media screen  and (max-width: 768px) {
     .main-nav{
         display: none;
     }
-    .logo{
-        margin-left: 5px;
+    header{
+        max-width: 100vw;
+        background-color: transparent;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
     }
-    .banner-content{
-       max-width: 200px;
-       
+    .container{
+        max-width: 100vw;
     }
-    .banner-title{
-        font-size: 30px;
-    }
-    .banner-overview{
-         max-width: fit-content;
-         min-width: fit-content;
-    }
-    .movies_cont {
+    
+    .right-cont{
         position: relative;
-        bottom: 4px;
+        left: 14px;
     }
-    .action-btn {
-        font-size: 12px; /* Reduce font size */
-        padding: 6px 10px; /* Adjust padding */
-    }
-
-    .action-btn svg {
-        width: 18px; /* Reduce SVG icon size */
-        height: 18px;
-        margin-right: 6px; /* Add margin to separate icon from text */
-    }
-  
+ 
+    .banner-title{
+        height: 10vh;
+        width: 90vw;
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        margin: 0;
+        margin-top: 100px;   
+        }
+        .banner-content{
+            max-width: 90vw;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-left: 30px; 
+            display: flex;
+            flex-direction: column; /* Display items vertically */
+            align-items: flex-start;
+        }.banner-info{
+            margin-top: 1000000px;
+            color: red;
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.5;
+            max-width: 80vw;
+            margin-top: 0;
+            padding-top: 0px;
+        }
+        .banner-overview{
+            font-size: 1rem;
+            font-weight: 600;
+            width: 80vw;
+            color: rgb(255, 255, 255);
+            line-height: 1.3;
+        }
+        .action-btn{
+            padding-top: 0;
+            padding-bottom: 0;
+            position: relative;
+            bottom:20px;
+            border-radius: 4px;
+            flex-direction: row;
+            font-size: 0.9rem;
+            font-weight: 800;
+            align-items: center;
+            cursor: pointer;
+        }
+        .banner-section{
+            max-width: 100vw;
+            min-height: 0vh;
+            position: relative;
+            background-repeat: no-repeat;
+            background-blend-mode: darken;
+            background-size: cover;
+        }
+        .movies_cont{
+            position: relative;
+            bottom: 0px;
+           
+        }
+       .movies-row{
+       max-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
-/* Media query for mobile screens */
-@media (max-width: 768px) {
-    .banner-content {
-        flex-direction: column;
-        align-items: center; /* Center content vertically on mobile */
-        text-align: center; /* Center text content horizontally on mobile */
-        padding: 20px; /* Add padding to the banner content */
-    }
-
-    .banner-info {
-        margin-top: 10px; /* Add margin between title and info */
-    }
-
-    .banner-overview {
-        margin-top: 20px; /* Add margin between info and overview */
-    }
-
-    .v {
-        flex-direction: column; /* Stack buttons vertically on mobile */
-        margin-top: 20px; /* Add margin between overview and buttons */
-    }
-
-    /* Adjust padding and margin for action buttons on mobile */
-    .action-btn {
-        padding: 10px 20px;
-        margin: 5px 0;
-    }
-
-    /* Adjust margin for movies container on mobile */
-   
+.movie_item{
+    max-width: 50vw;
+    max-height: 80px;
+    object-fit:contain;
+    border-radius: 4px;
+    margin-right: 10px;
 }
+.movie-section-heading{
+    margin-left: 10px;
+    margin-right: 0;
+    max-width: 100vw;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2 ;
+    color: #e5e5e5;
+    cursor: pointer;
+    margin-bottom: 10px;
+    }
+    .movie-box{
+        background-color: rgb(20, 18, 18);
+        width: 100vw;
+        height: 100vh;
+        margin-top: 90px
+    }
+    .img{
+        width: 105vw;
+        position: relative;
+        bottom: 69px;
+        right: 19px;
+    
+    }
+    .primary-button button {
+        cursor: pointer;
+        background-color: rgba(22, 18, 18, 0.199);
+        padding: 5px 7px 4px;
+        border-radius: 4px;
+        border: none;
+        margin-right: 14px;
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        position: relative;
+        bottom: -8px;
+        color: white;
+    }
+    .color-supplementary {
+        cursor: pointer;
+        margin-right: 9px;
+        color: aliceblue;
+        background-color: rgba(2, 2, 2, 0.384);
+        border-radius: 100%;
+        border: none;
+        margin-top: 10px;
+        border: -11px solid wheat;
+    }
+    .close-button {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        color: white;
+        padding: 9px;
+        background-color: rgba(0, 0, 0, 0.404);
+        position: sticky;
+        float: right;
+        right: 5px;
+        z-index: 9999;
+        transition: top 0.3s ease-in-out;
+        margin-bottom: 0px;
+    }
+    .title{
+        margin-left: 10px;
+        font-size: 1.7rem;
+        max-width: 80vw;
+    }
+    .overview{
+        font-size: 0.9rem;
+        margin-left: 10px;
+        max-width: 80vw;
+    }
+   .movie-details-content{
+    max-width: 100vw;
+   }
+   .heading{
+    font-size: 1.5rem;
+   }
+ 
+   .card{
 
+    border-radius: 10px;
+    background-color: #4b484883;
+    max-width: 30vw;
+    height: 25vh;
+    margin-right: 2px;
+    margin-bottom: 35px;
+    margin-left: 8px;
+}
+.similar-movie{
+    border-radius: 5px;
+    width: 30vw;
+    height: 22vw;
+}
+.padd{
+    position: relative;
+    bottom: 10px;
+    padding-left: 10px;
+    font-size: 0.8rem;
+}
+.q{
+    text-align: justify;
+    padding-right: 15px;
+    font-size: 0.5rem;
+    max-width: 20vw;
+}
+}
 
 
 
