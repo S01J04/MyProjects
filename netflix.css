@@ -558,7 +558,7 @@ a{
     border-radius: 10px;
     background-color: #4b484883;
     max-width: 30vw;
-    height: 25vh;
+    height: 30vh;
     margin-right: 2px;
     margin-bottom: 35px;
     margin-left: 8px;
@@ -572,7 +572,7 @@ a{
     position: relative;
     bottom: 10px;
     padding-left: 10px;
-    font-size: 0.8rem;
+    font-size: 0.5rem;
 }
 .q{
     text-align: justify;
